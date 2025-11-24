@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h2 {
+    color: #00aaff;
+    margin-bottom: 1rem;
+}
+
+/* Tabella migliorata per leggibilità */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid #004466;
+    padding: 12px 16px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Header tabella */
+thead th {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(90deg, #006699, #00ccff);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+/* Righe alternate */
+tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #222;
+}
+
+/* Hover sulle righe */
+tbody tr:hover {
+    background-color: #005577;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+/* Stili specifici per colonne */
+/* ID colonne - font monospace per codici */
+td:first-child {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #aaddff;
+    font-weight: 500;
+}
+
+/* Time/Date columns - formato migliorato */
+td:nth-child(2) {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: #bbddff;
+    white-space: nowrap;
+}
+
+/* Colonne con codici tecnici */
+td:nth-child(3) {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #cccccc;
+}
+
+/* Container tabella con scroll */
+.table-container {
+    max-height: 83vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 0px;
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.7);
+    background-color: #1e1e1e;
+}
+
+/* Scrollbar personalizzata */
+.table-container::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #0d0d0d;
+    border-radius: 6px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #006699, #00ccff);
+    border-radius: 6px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0088bb, #00ddff);
+}
+
+/* Campi evidenziati per STATUS */
+.campo-evidenziato-verde {
+    background-color: #00aa44 !important;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid #00cc55;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+}
+
+.campo-evidenziato-rosso {
+    background-color: #cc0000 !important;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid #ff0000;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+}
+
+.campo-evidenziato-giallo {
+    background-color: #ffaa00 !important;
+    color: #000000;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid #ffcc00;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+}
+
+/* Colonne NULL o None - stile attenuato */
+td:contains("NULL"), td:contains("None") {
+    color: #666;
+    font-style: italic;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #006699, #00ccff);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 20px rgba(0, 170, 255, 0.5);
+}
+
+header .header-content {
+    display: flex;
+    align-items: right;
+    gap: 1rem;
+    max-width: auto;
+    margin: 0 auto;
+}
+
+header img {
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+header img:hover {
+    transform: scale(1.1);
+}
+
+header h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Footer */
+footer {
+    background-color: #1e1e1e;
+    padding: 1.5rem;
+    text-align: center;
+    color: #888;
+    border-top: 1px solid #004466;
+    margin-top: auto;
+}
+
+/* Logo hover */
+.logo-hover-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    transition: opacity 0.8s, transform 0.8s;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.8s ease;
+    z-index: 1;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 2;
+}
+
+.logo-icon i {
+    font-size: 50px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+.logo-hover-container:hover .logo-img {
+    display: none;
+}
+
+.logo-hover-container:hover .logo-icon {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header img {
+        height: 40px;
+    }
+
+    table {
+        font-size: 0.85rem;
+    }
+
+    th, td {
+        padding: 8px 10px;
+    }
+}
+
+/* Miglioramenti per celle con testo lungo */
+td {
+    max-width: 300px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Evidenzia celle vuote */
+td:empty::before {
+    content: '—';
+    color: #555;
+    font-style: italic;
+}

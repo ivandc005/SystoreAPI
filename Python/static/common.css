@@ -1,0 +1,131 @@
+/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #006699, #00ccff);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 20px rgba(0, 170, 255, 0.5);
+}
+
+header .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    max-width: auto;
+    margin: 0 auto;
+}
+
+header img {
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+header img:hover {
+    transform: scale(1.1);
+}
+
+header h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Logo Hover Effect */
+.logo-hover-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo-img,
+.logo-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 55px;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.logo-img {
+    opacity: 1;
+    z-index: 1;
+}
+
+.logo-icon {
+    opacity: 0;
+    z-index: 2;
+}
+
+.logo-icon i {
+    font-size: 50px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.logo-hover-container:hover .logo-img {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.logo-hover-container:hover .logo-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.header-text h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+
+.header-text p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Footer */
+footer {
+    background-color: #1e1e1e;
+    padding: 1.5rem;
+    text-align: center;
+    color: #888;
+    border-top: 1px solid #004466;
+    margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header img {
+        height: 40px;
+    }
+}

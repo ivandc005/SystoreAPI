@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Systore API</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='tables.css') }}">
+  <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 1rem;" class="header-content">
+      <a href="/" class="logo-hover-container" aria-label="Homepage">
+        <img src="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}" alt="Logo" class="logo-img" />
+        <span class="logo-icon">
+          <i class="fa-solid fa-home"></i>
+        </span>
+      </a>
+      <div>
+        <h1>Systore API Dashboard</h1>
+        <p>Visualizza e gestisci i dati del tuo Impianto</p>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            {% for col in colonne %}
+            <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for riga in dati %}
+          <tr>
+            {% for col in colonne %}
+            <td>{{ riga[col] }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 Database Management System | Powered by Flask & SQL Server</p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Systore API</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='tables.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='xml-popup.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 1rem;" class="header-content">
+      <a href="/" class="logo-hover-container" aria-label="Homepage">
+        <img src="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}" alt="Logo" class="logo-img" />
+        <span class="logo-icon">
+          <i class="fa-solid fa-home"></i>
+        </span>
+      </a>
+      <div>
+        <h1>Systore API Dashboard</h1>
+        <p>Visualizza e gestisci i dati del tuo Impianto</p>
+      </div>
+    </div>
+  </header>
+  
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          {% for col in colonne %}
+            {# FILTRO HEADER: Mostra la colonna solo se NON è tra quelle da escludere #}
+            {% if col not in ['IMP_DATA_XML', 'EXP_DATA_XML'] %}
+              <th>{{ col }}</th>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for riga in dati %}
+        <tr>
+          {% for col in colonne %}
+            
+            {# FILTRO BODY: Esegui il rendering solo se la colonna NON è tra quelle da escludere #}
+            {% if col not in ['IMP_DATA_XML', 'EXP_DATA_XML'] %}
+              {% set valore = riga[col] %}
+
+              {# 1. Gestione colonne STATUS #}
+              {% if (col == "IMP_STATUS" or col == "EXP_STATUS") %}
+                {% if valore == "COMPL" %}
+                  <td class="campo-evidenziato-verde">{{ valore }}</td>
+                {% elif valore == "WAIT" %}
+                  <td class="campo-evidenziato-giallo">{{ valore }}</td>
+                {% elif valore == "ERR" %}
+                  <td class="campo-evidenziato-rosso">{{ valore }}</td>
+                {% else %}
+                  <td>{{ valore }}</td>
+                {% endif %}
+              
+              {# 2. Gestione altre colonne XML (es. IMP_DATA) se necessario #}
+              {% elif col in ["IMP_DATA", "EXP_DATA", EXP_DATA_1] %}
+                {% if valore and valore|string|trim %}
+                  <td class="campo-xml" onclick="openXmlPopup(this)"><pre>{{ valore }}</pre></td>
+                {% else %}
+                  <td></td>
+                {% endif %}
+                
+              {# 3. Colonne normali #}
+              {% else %}
+                <td>{{ valore }}</td>
+              {% endif %}
+
+            {% endif %} {# Fine if esclusione #}
+          
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <footer>
+    <p>© 2025 Database Management System | Powered by Flask & SQL Server</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/xml-popup.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/table-formatter.js') }}"></script>
+  
+</body>
+</body>
+
+</html>
