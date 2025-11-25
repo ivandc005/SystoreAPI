@@ -11,7 +11,7 @@ engine = create_engine(connection_string)
 #menu generale per visualizzare il tutto
 @app.route('/')
 def index():
-    return render_template('menu.html')
+    return render_template('homepage.html')
 
 #creazione funzione per formattare xml
 def prettify_xml(xml_string):
@@ -29,7 +29,7 @@ def tabella_report_dry():
                                     " exec ws_CUSTOM_L2_FlowCheck_Dry @databeg, @dataend, 24, 60"))
         rows2 = [dict(zip(result.keys(), row)) for row in result]
     colonne2 = result.keys()
-    return render_template('tabella.html', dati=rows2, colonne=colonne2)
+    return render_template('tabelle.html', dati=rows2, colonne=colonne2)
 
 @app.route('/tabella_report_frozen')
 def tabella_report_frozen():
@@ -39,7 +39,7 @@ def tabella_report_frozen():
                                     " exec ws_CUSTOM_L2_FlowCheck_Frozen @databeg, @dataend, 24, 60"))
         rows3 = [dict(zip(result.keys(), row)) for row in result]
     colonne3 = result.keys()
-    return render_template('tabella.html', dati=rows3, colonne=colonne3)
+    return render_template('tabelle.html', dati=rows3, colonne=colonne3)
 
 #restituisco tabella di import    
 @app.route('/tabella_import')
@@ -70,6 +70,70 @@ def tabella_export():
     colonne3 = result.keys()  
     return render_template('tabelle_imp_exp.html', dati=rows3, colonne=colonne3)
 
+@app.route('/avvisi_di_ingresso')
+def avvisi_di_ingresso():
+    with engine.connect() as conn:
+        result = conn.execute(text("SET DATEFORMAT YMD "
+                                    "SET NOCOUNT ON "
+                                    "declare @aree nvarchar(500) "
+                                    "select @aree = MAS_ELEAREE from GESTORI_MASTER where MAS_MASTER = N'MAIN' "
+
+                                    "declare @baia int "
+                                    "select @baia = isnull(cast(N'' as int), 0) "
+
+                                    "declare @scomparto int "
+                                    "select @scomparto = isnull(cast(N'' as int), 0) "
+
+                                    "declare "
+                                    "  @sco_articolo nvarchar(50), @sco_sub1 nvarchar(50), @sco_sub2 nvarchar(50), " 
+                                    "  @sco_stamate nvarchar(5), @sco_tipoconf nvarchar(5) "
+                                    "if @scomparto > 0 begin "
+                                    "  select "
+                                    "    @sco_articolo = SCO_ARTICOLO, @sco_sub1 = SCO_SUB1, @sco_sub2 = SCO_SUB2, "
+                                    "    @sco_stamate = SCO_STAMATE, @sco_tipoconf = SCO_TIPOCONF "
+                                    "  from DAT_SCOMPART "
+                                    "  where SCO_SCOMPARTO = @scomparto "
+                                    "end "
+
+
+                                    "SET NOCOUNT OFF "
+                                    "select top 100 "
+                                    "  [RIG_ORDINE],[RIG_RIGA],[RIG_STARIORD],[RIG_PRIO],[RIG_ARTICOLO],CASE WHEN ART_ARTICOLO <> '' THEN dbo.fn_td(ART_DES) ELSE '' END as [ART_DES],[RIG_SUB1],[RIG_SUB2],[RIG_STAMATE],[RIG_TIPOCONF],[RIG_SSCC_SOURCE],[RIG_QTAR],[RIG_QTAI],[RIG_QTAE],CASE WHEN ART_ARTICOLO <> '' THEN ART_UMI ELSE '' END as [ART_UMI],[RIG_REQ_NOTE],[RIG_ERR],[RIG_DCREA],[RIG_DMOD],[RIG_DMOV],[RIG_PADRE_RIGA],[RIG_HOSTINF],[RIG_HOSTCAUS],[RIG_HOSTRIF],[RIG_NESE],[RIG_NESE_SIM],[RIG_QTAI_SIM],[RIG_HOST],[RIG_EXPORDINE],[ORD_TIPOOP],CASE WHEN ORD_FIX = 1 THEN ORD_DES "
+                                    "          WHEN ORD_PADRE_ORDINE <> '' THEN ORD_PADRE_ORDINE "
+                                    "          ELSE ORD_ORDINE "
+                                    "          END as [ORD_ORDINE_SHOW],[RIG_LOCNO],[RIG_DRY_CORR], "
+                                    "  case when RIG_ERR = 1 then 16 "
+                                    "           else 0 "
+                                    "  end as STYLE "
+                                    ",RIG_HOST as [~READONLY] "
+                                    "from DAT_ORDINI "
+                                    "  inner join TIPI_ORDINI on TORD_ORDTYPE = ORD_ORDTYPE "
+                                    "  inner join DAT_ORDINI_RIGHE on RIG_ORDINE = ORD_ORDINE "
+                                    "  inner join DAT_ARTICOLI on ART_ARTICOLO = RIG_ARTICOLO "
+                                    "where ORD_ORDINE <> '' "
+                                    "  and ORD_IMME = 0 "
+                                    "  and ORD_TIPOOP IN ('E', 'V') "
+                                    "  and TORD_WITH_CHILDREN = 0 "
+                                    "  and ORD_EXPORDINE = '' "
+                                    "  and dbo.fn_IntersInsiemi(@aree, ORD_ELEAREE, ',') <> ',' "
+                                    "  and (@baia = 0 or ORD_ELEBAIE = '' or ORD_ELEBAIE like ('%,' + cast(@baia as nvarchar) + ',%')) "
+
+                                    "  and RIG_RIGA <> 0 "
+                                    "  and RIG_EXPORDINE = '' "
+                                    "  and RIG_SPLIT_SIM = 0 "
+                                    "  and (@scomparto = 0 or @sco_articolo = '' or ( "
+                                    "    @sco_articolo = RIG_ARTICOLO "
+                                    "    and @sco_sub1 = RIG_SUB1 "
+                                    "    and @sco_sub2 = RIG_SUB2 "
+                                    "    and @sco_stamate = RIG_STAMATE "
+                                    "    and @sco_tipoconf = RIG_TIPOCONF "
+                                    "  ))"
+                                    "  and (1=1) "
+                                    "ORDER BY "
+                                    "[RIG_PRIO],[RIG_RIGA] "))
+        rows_avvisi = [dict(zip(result.keys(), row)) for row in result]
+    colonne_avvisi = result.keys()
+    return render_template('tabelle.html', dati=rows_avvisi, colonne=colonne_avvisi)
 
 
 if __name__ == '__main__':

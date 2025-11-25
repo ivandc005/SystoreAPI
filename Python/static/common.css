@@ -27,16 +27,7 @@ header .header-content {
     gap: 1.2rem;
     max-width: auto;
     margin: 0 auto;
-}
-
-header img {
-    height: 50px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-header img:hover {
-    transform: scale(1.1);
+    flex-wrap: wrap;
 }
 
 header h1 {
@@ -51,42 +42,49 @@ header p {
     margin: 0;
 }
 
-/* Logo Hover Effect */
+/* Logo Hover Effect - FIXED VERSION */
 .logo-hover-container {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
     display: inline-block;
-    vertical-align: middle;
+    text-decoration: none;
 }
 
-.logo-img,
+.logo-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
 .logo-icon {
     position: absolute;
     top: 0;
     left: 0;
     width: 60px;
-    height: 55px;
-    transition: opacity 0.3s, transform 0.3s;
-}
-
-.logo-img {
-    opacity: 1;
-    z-index: 1;
-}
-
-.logo-icon {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
     z-index: 2;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .logo-icon i {
     font-size: 50px;
     color: #ffffff;
-    text-align: center;
 }
 
+/* Hover states */
 .logo-hover-container:hover .logo-img {
     opacity: 0;
     transform: scale(0.8);
@@ -125,7 +123,18 @@ footer {
         font-size: 1.5rem;
     }
 
-    header img {
-        height: 40px;
+    .logo-hover-container,
+    .logo-img,
+    .logo-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .logo-icon i {
+        font-size: 40px;
+    }
+    
+    header .header-content {
+        gap: 0.8rem;
     }
 }
