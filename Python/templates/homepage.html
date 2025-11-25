@@ -67,8 +67,8 @@
             <h2 class="category-title">Gestione Movimentazione</h2>
             <div class="cards-grid">
                 <!--Avvisi di Ingresso-->
-                <a href="/avvisi_di_ingresso" class="card" data-keywords="import host xml tabella">
-                    <div class="card-icon">📄</div>
+                <a href="/avvisi_di_ingresso" class="card" data-keywords="avvisi ingresso attesa incompleto">
+                    <div class="card-icon">📦</div>
                     <div class="card-title">Avvisi di Ingresso</div>
                     <div class="card-description">
                         Visualizza gli avvisi di ingresso in attesa, in esecuzione o in incompleto
@@ -77,21 +77,38 @@
                     <span class="card-badge">Avvisi</span>
                     <span class="card-badge">Incompleto</span>
                 </a>
-                <!--
-                tabella di export
-                <a href="/tabella_export" class="card" data-keywords="export host xml tabella">
-                    <div class="card-icon">📤</div>
-                    <div class="card-title">EXPORT</div>
+                <!--tabella Lancio ordini-->
+                <a href="/lancio_ordini" class="card" data-keywords="ordini incompleto lancio uscita">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Lancio Ordini</div>
                     <div class="card-description">
-                        Visualizza gli ultimi 100 record della tabella HOST_EXPORT ordinati per data. Include
-                        formattazione XML avanzata.
+                        Visualizza tutti gli ordini di uscita in attesa di esecuzione, in esecuzione o in incompleto.
                     </div>
-                    <span class="card-badge">Top 100</span>
-                    <span class="card-badge">XML</span>
-                </a>-->
+                    <span class="card-badge">Ordini</span>
+                    <span class="card-badge">Uscita</span>
+                </a>
+                <!--tabella operazioni da eseguire-->
+                <a href="/operazioni_da_eseguire" class="card" data-keywords="operazioni esegui eseguire">
+                    <div class="card-icon">💻</div>
+                    <div class="card-title">Operazioni da eseguire</div>
+                    <div class="card-description">
+                       Elenco delle operazioni da eseguire generate da un ordine in esecuzione
+                    </div>
+                    <span class="card-badge">Operazioni</span>
+                    <span class="card-badge">Esegui</span>
+                </a>
+                <!--tabella Run missioni-->
+                <a href="/run_missioni" class="card" data-keywords="Missioni esecuzione">
+                    <div class="card-icon">⚙️</div>
+                    <div class="card-title">Missioni</div>
+                    <div class="card-description">
+                       Elenco delle missioni in esecuzioni associate ad una riga di esegui
+                    </div>
+                    <span class="card-badge">Missioni</span>
+                    <span class="card-badge">Esecuzioni</span>
+                </a>
             </div>
         </div>
-
 
         <!-- Categoria: Report -->
         <div class="category" data-category="reports">
@@ -119,14 +136,14 @@
                 </a>
 
 
-                <a class="card" style="opacity: 0.4; cursor: not-allowed;" data-keywords="futuro">
+                <!-- <a class="card" style="opacity: 0.4; cursor: not-allowed;" data-keywords="futuro">
                     <div class="card-icon">🚧</div>
                     <div class="card-title">Report Avanzato</div>
                     <div class="card-description">
                         Funzionalità in sviluppo. Disponibile prossimamente.
                     </div>
                     <span class="card-badge">Coming Soon</span>
-                </a>
+                </a> -->
             </div>
         </div>
 
