@@ -1,0 +1,312 @@
+/* ==========================================
+   THEME SWITCHER - LIGHT & DARK MODE
+   ========================================== */
+
+/* Theme Toggle Button - Positioned in header */
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.theme-toggle-btn {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.theme-toggle-slider {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    left: 4px;
+}
+
+.theme-toggle-btn.light .theme-toggle-slider {
+    left: calc(100% - 26px);
+    background: #ffd700;
+}
+
+.theme-icon {
+    font-size: 0.85rem;
+}
+
+/* ==========================================
+   LIGHT THEME VARIABLES & STYLES
+   ========================================== */
+
+body.light-theme {
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e8e8e8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #6a6a6a;
+    --border-color: #d0d0d0;
+    --accent-color: #0066cc;
+    --accent-hover: #0052a3;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --header-gradient-start: #0066cc;
+    --header-gradient-end: #00aaff;
+    --card-bg: #ffffff;
+    --card-border: #d0d0d0;
+    --card-hover-shadow: rgba(0, 102, 204, 0.3);
+}
+
+/* Body - Light Theme */
+body.light-theme {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Header - Light Theme */
+body.light-theme header {
+    background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end));
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+body.light-theme header h1 {
+    color: white;
+}
+
+body.light-theme header p {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Tables - Light Theme */
+body.light-theme table {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+body.light-theme th,
+body.light-theme td {
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+body.light-theme thead th {
+    background: linear-gradient(90deg, #0066cc, #00aaff);
+    color: white;
+}
+
+body.light-theme tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+body.light-theme tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+body.light-theme tbody tr:hover {
+    background-color: #e6f2ff;
+    color: var(--text-primary);
+}
+
+body.light-theme .table-container {
+    background-color: var(--bg-secondary);
+    box-shadow: 0 0 15px rgba(0, 102, 204, 0.2);
+}
+
+/* Cards - Light Theme */
+body.light-theme .card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--text-primary);
+}
+
+body.light-theme .card:hover {
+    box-shadow: 0 8px 25px var(--card-hover-shadow);
+    border-color: var(--accent-color);
+}
+
+body.light-theme .card-title {
+    color: var(--accent-color);
+}
+
+body.light-theme .card-description {
+    color: var(--text-secondary);
+}
+
+body.light-theme .card-badge {
+    background-color: var(--accent-color);
+}
+
+/* Search Box - Light Theme */
+body.light-theme .search-box,
+body.light-theme #tableSearch {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.light-theme .search-box:focus,
+body.light-theme #tableSearch:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 102, 204, 0.3);
+}
+
+/* Footer - Light Theme */
+body.light-theme footer {
+    background-color: #e8e8e8;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+/* XML Popup - Light Theme */
+body.light-theme .xml-popup {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+body.light-theme .xml-popup > div {
+    background-color: var(--bg-secondary);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 50px rgba(0, 102, 204, 0.4);
+}
+
+body.light-theme .xml-popup-content {
+    background-color: #f9f9f9;
+}
+
+body.light-theme .xml-popup-code {
+    background-color: #f5f5f5;
+    border-color: var(--border-color);
+    color: #2d5016;
+}
+
+/* Status Colors - Light Theme (more vibrant) */
+body.light-theme .campo-evidenziato-verde {
+    background-color: #28a745 !important;
+    border-color: #1e7e34 !important;
+}
+
+body.light-theme .campo-evidenziato-rosso {
+    background-color: #dc3545 !important;
+    border-color: #c82333 !important;
+}
+
+body.light-theme .campo-evidenziato-giallo {
+    background-color: #ffc107 !important;
+    color: #1a1a1a !important;
+    border-color: #e0a800 !important;
+}
+
+/* XML Cell - Light Theme */
+body.light-theme .campo-xml {
+    color: var(--accent-color);
+}
+
+body.light-theme .campo-xml::after {
+    background-color: var(--bg-secondary);
+    color: var(--accent-color);
+}
+
+/* Category Titles - Light Theme */
+body.light-theme .category-title {
+    color: var(--accent-color);
+    border-bottom-color: var(--border-color);
+}
+
+/* Scrollbar - Light Theme */
+body.light-theme .table-container::-webkit-scrollbar-track {
+    background: #e8e8e8;
+}
+
+body.light-theme .table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #0066cc, #00aaff);
+}
+
+body.light-theme .table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0052a3, #0088cc);
+}
+
+/* Result Count Badge - Light Theme */
+body.light-theme #resultCount {
+    background: linear-gradient(135deg, #0066cc, #00aaff);
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
+}
+
+/* Logo Icon - Light Theme */
+body.light-theme .logo-icon i {
+    color: white;
+}
+
+/* Search Bar Container - Light Theme */
+body.light-theme #tableSearch {
+    background-color: white;
+}
+
+body.light-theme #clearSearch {
+    background: linear-gradient(135deg, #0066cc, #00aaff);
+}
+
+body.light-theme #clearSearch:hover {
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
+}
+
+/* No Results - Light Theme */
+body.light-theme .no-results {
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   SMOOTH TRANSITIONS FOR THEME SWITCH
+   ========================================== */
+
+body,
+header,
+table,
+.card,
+.search-box,
+footer,
+.xml-popup > div,
+.xml-popup-content,
+.xml-popup-code,
+.table-container {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+@media (max-width: 768px) {
+    .theme-toggle-container {
+        margin-left: 0;
+        order: -1;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .theme-toggle-btn {
+        width: 55px;
+        height: 28px;
+    }
+    
+    .theme-toggle-slider {
+        width: 20px;
+        height: 20px;
+    }
+}

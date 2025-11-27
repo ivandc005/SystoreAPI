@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "language_name": "Italiano",
+    "language_code": "it"
+  },
+  "header": {
+    "title": "Systore API Dashboard",
+    "subtitle": "Visualizza e gestisci i dati del tuo Impianto",
+    "home_aria": "Homepage"
+  },
+  "footer": {
+    "copyright": "© {year} Database Management System | Powered by SystemLogistics"
+  },
+  "search": {
+    "placeholder": "🔍 Cerca tabelle, report o visualizzazioni...",
+    "table_placeholder": "🔍 Cerca nella tabella...",
+    "clear": "Cancella",
+    "no_results": "🔍 Nessun risultato trovato per la tua ricerca.",
+    "results_count": "{visible} / {total} righe"
+  },
+  "categories": {
+    "import_export": "Gestione Import/Export",
+    "movement": "Gestione Movimentazione",
+    "reports": "Report e Analisi",
+    "custom": "Visualizzazioni Personalizzate"
+  },
+  "cards": {
+    "import": {
+      "title": "IMPORT",
+      "description": "Visualizza gli ultimi 100 record della tabella HOST_IMPORT ordinati per data. Include formattazione XML avanzata.",
+      "keywords": "import host xml tabella"
+    },
+    "export": {
+      "title": "EXPORT",
+      "description": "Visualizza gli ultimi 100 record della tabella HOST_EXPORT ordinati per data. Include formattazione XML avanzata.",
+      "keywords": "export host xml tabella"
+    },
+    "entry_notices": {
+      "title": "Avvisi di Ingresso",
+      "description": "Visualizza gli avvisi di ingresso in attesa, in esecuzione o in incompleto",
+      "keywords": "avvisi ingresso attesa incompleto"
+    },
+    "launch_orders": {
+      "title": "Lancio Ordini",
+      "description": "Visualizza tutti gli ordini di uscita in attesa di esecuzione, in esecuzione o in incompleto.",
+      "keywords": "ordini incompleto lancio uscita"
+    },
+    "operations": {
+      "title": "Operazioni da eseguire",
+      "description": "Elenco delle operazioni da eseguire generate da un ordine in esecuzione",
+      "keywords": "operazioni esegui eseguire"
+    },
+    "missions": {
+      "title": "Missioni",
+      "description": "Elenco delle missioni in esecuzioni associate ad una riga di esegui",
+      "keywords": "Missioni esecuzione"
+    },
+    "report_dry": {
+      "title": "Flow Check - Dry Report",
+      "description": "Report di controllo flusso con analisi delle ultime 24 ore del magazzino dry. Mostra statistiche e anomalie rilevate.",
+      "keywords": "report dry flow check analisi"
+    },
+    "report_frozen": {
+      "title": "Flow Check - Frozen Report",
+      "description": "Report di controllo flusso con analisi delle ultime 24 ore del magazzino frozen. Mostra statistiche e anomalie rilevate.",
+      "keywords": "report frozen flow check analisi"
+    },
+    "custom_dashboard": {
+      "title": "Dashboard Custom",
+      "description": "Visualizzazione personalizzata con grafici e KPI principali.",
+      "keywords": "esempio custom dashboard"
+    }
+  },
+  "badges": {
+    "top_100": "Top 100",
+    "xml": "XML",
+    "entry": "Ingresso",
+    "notices": "Avvisi",
+    "incomplete": "Incompleto",
+    "orders": "Ordini",
+    "exit": "Uscita",
+    "operations": "Operazioni",
+    "execute": "Esegui",
+    "missions": "Missioni",
+    "executions": "Esecuzioni",
+    "24h": "24h",
+    "live": "Live",
+    "dashboard": "Dashboard",
+    "coming_soon": "Coming Soon"
+  },
+  "xml_popup": {
+    "title": "XML Content",
+    "copy": "Copia",
+    "copied": "Copiato!",
+    "error": "Errore!",
+    "close": "Chiudi",
+    "click_details": "🔍 Click per dettagli"
+  },
+  "table": {
+    "row_number": "#",
+    "empty_cell": "—",
+    "status": {
+      "completed": "COMPL",
+      "waiting": "WAIT",
+      "error": "ERR"
+    }
+  },
+  "language_selector": {
+    "change_language": "Cambia lingua",
+    "current": "Lingua corrente: {language}"
+  }
+}

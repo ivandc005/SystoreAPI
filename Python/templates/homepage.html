@@ -1,179 +1,188 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="{{ current_lang }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Systore API</title>
+    <title>{{ t('header.title') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='theme-switcher.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='language-selector.css') }}">    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
+    <header>    
+
         <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;" class="header-content">
-            <div class="logo-hover-container">
+            <!-- Selettore Lingua -->
+            <div class="language-selector">
+                <i class="fas fa-globe"></i>
+                <select id="languageSelect" onchange="changeLanguage(this.value)">
+                    {% for lang in supported_langs %}
+                        <option value="{{ lang }}" {% if lang == current_lang %}selected{% endif %}>
+                            {{ t('meta.language_name', lang=lang)|upper }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="logo-hover-container ">
                 <img src="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}" alt="Logo" class="logo-img" />
                 <span class="logo-icon">
                     <i class="fa-solid fa-house"></i>
                 </span>
             </div>
             <div class="header-text">
-                <h1>Systore API Dashboard</h1>
-                <p>Visualizza e gestisci i dati del tuo Impianto</p>
+                <h1>{{ t('header.title') }}</h1>
+                <p>{{ t('header.subtitle') }}</p>
             </div>
         </div>
+
     </header>
 
     <div class="container">
         <!-- Search Bar -->
         <div class="search-container">
             <input type="text" class="search-box" id="searchInput"
-                placeholder="🔍 Cerca tabelle, report o visualizzazioni...">
+                placeholder="{{ t('search.placeholder') }}">
         </div>
 
-        <!-- Categoria: Tabelle Import/Export -->
+        <!-- Categoria: Import/Export -->
         <div class="category" data-category="import-export">
-            <h2 class="category-title">Gestione Import/Export</h2>
+            <h2 class="category-title">{{ t('categories.import_export') }}</h2>
             <div class="cards-grid">
-                <!--tabella di import-->
-                <a href="/tabella_import" class="card" data-keywords="import host xml tabella">
+                <!-- Card Import -->
+                <a href="/tabella_import" class="card" data-keywords="{{ t('cards.import.keywords') }}">
                     <div class="card-icon">📥</div>
-                    <div class="card-title">IMPORT</div>
-                    <div class="card-description">
-                        Visualizza gli ultimi 100 record della tabella HOST_IMPORT ordinati per data. Include
-                        formattazione XML avanzata.
-                    </div>
-                    <span class="card-badge">Top 100</span>
-                    <span class="card-badge">XML</span>
+                    <div class="card-title">{{ t('cards.import.title') }}</div>
+                    <div class="card-description">{{ t('cards.import.description') }}</div>
+                    <span class="card-badge">{{ t('badges.top_100') }}</span>
+                    <span class="card-badge">{{ t('badges.xml') }}</span>
                 </a>
-                <!--tabella di export-->
-                <a href="/tabella_export" class="card" data-keywords="export host xml tabella">
+
+                <!-- Card Export -->
+                <a href="/tabella_export" class="card" data-keywords="{{ t('cards.export.keywords') }}">
                     <div class="card-icon">📤</div>
-                    <div class="card-title">EXPORT</div>
-                    <div class="card-description">
-                        Visualizza gli ultimi 100 record della tabella HOST_EXPORT ordinati per data. Include
-                        formattazione XML avanzata.
-                    </div>
-                    <span class="card-badge">Top 100</span>
-                    <span class="card-badge">XML</span>
+                    <div class="card-title">{{ t('cards.export.title') }}</div>
+                    <div class="card-description">{{ t('cards.export.description') }}</div>
+                    <span class="card-badge">{{ t('badges.top_100') }}</span>
+                    <span class="card-badge">{{ t('badges.xml') }}</span>
                 </a>
             </div>
         </div>
 
+        <!-- Categoria: Movimentazione -->
         <div class="category" data-category="movimentazione">
-            <h2 class="category-title">Gestione Movimentazione</h2>
+            <h2 class="category-title">{{ t('categories.movement') }}</h2>
             <div class="cards-grid">
-                <!--Avvisi di Ingresso-->
-                <a href="/avvisi_di_ingresso" class="card" data-keywords="avvisi ingresso attesa incompleto">
+                <!-- Avvisi di Ingresso -->
+                <a href="/avvisi_di_ingresso" class="card" data-keywords="{{ t('cards.entry_notices.keywords') }}">
                     <div class="card-icon">📦</div>
-                    <div class="card-title">Avvisi di Ingresso</div>
-                    <div class="card-description">
-                        Visualizza gli avvisi di ingresso in attesa, in esecuzione o in incompleto
-                    </div>
-                    <span class="card-badge">Ingresso</span>
-                    <span class="card-badge">Avvisi</span>
-                    <span class="card-badge">Incompleto</span>
+                    <div class="card-title">{{ t('cards.entry_notices.title') }}</div>
+                    <div class="card-description">{{ t('cards.entry_notices.description') }}</div>
+                    <span class="card-badge">{{ t('badges.entry') }}</span>
+                    <span class="card-badge">{{ t('badges.notices') }}</span>
+                    <span class="card-badge">{{ t('badges.incomplete') }}</span>
                 </a>
-                <!--tabella Lancio ordini-->
-                <a href="/lancio_ordini" class="card" data-keywords="ordini incompleto lancio uscita">
+
+                <!-- Lancio Ordini -->
+                <a href="/lancio_ordini" class="card" data-keywords="{{ t('cards.launch_orders.keywords') }}">
                     <div class="card-icon">📝</div>
-                    <div class="card-title">Lancio Ordini</div>
-                    <div class="card-description">
-                        Visualizza tutti gli ordini di uscita in attesa di esecuzione, in esecuzione o in incompleto.
-                    </div>
-                    <span class="card-badge">Ordini</span>
-                    <span class="card-badge">Uscita</span>
+                    <div class="card-title">{{ t('cards.launch_orders.title') }}</div>
+                    <div class="card-description">{{ t('cards.launch_orders.description') }}</div>
+                    <span class="card-badge">{{ t('badges.orders') }}</span>
+                    <span class="card-badge">{{ t('badges.exit') }}</span>
                 </a>
-                <!--tabella operazioni da eseguire-->
-                <a href="/operazioni_da_eseguire" class="card" data-keywords="operazioni esegui eseguire">
+
+                <!-- Operazioni da Eseguire -->
+                <a href="/operazioni_da_eseguire" class="card" data-keywords="{{ t('cards.operations.keywords') }}">
                     <div class="card-icon">💻</div>
-                    <div class="card-title">Operazioni da eseguire</div>
-                    <div class="card-description">
-                       Elenco delle operazioni da eseguire generate da un ordine in esecuzione
-                    </div>
-                    <span class="card-badge">Operazioni</span>
-                    <span class="card-badge">Esegui</span>
+                    <div class="card-title">{{ t('cards.operations.title') }}</div>
+                    <div class="card-description">{{ t('cards.operations.description') }}</div>
+                    <span class="card-badge">{{ t('badges.operations') }}</span>
+                    <span class="card-badge">{{ t('badges.execute') }}</span>
                 </a>
-                <!--tabella Run missioni-->
-                <a href="/run_missioni" class="card" data-keywords="Missioni esecuzione">
+
+                <!-- Missioni -->
+                <a href="/run_missioni" class="card" data-keywords="{{ t('cards.missions.keywords') }}">
                     <div class="card-icon">⚙️</div>
-                    <div class="card-title">Missioni</div>
-                    <div class="card-description">
-                       Elenco delle missioni in esecuzioni associate ad una riga di esegui
-                    </div>
-                    <span class="card-badge">Missioni</span>
-                    <span class="card-badge">Esecuzioni</span>
+                    <div class="card-title">{{ t('cards.missions.title') }}</div>
+                    <div class="card-description">{{ t('cards.missions.description') }}</div>
+                    <span class="card-badge">{{ t('badges.missions') }}</span>
+                    <span class="card-badge">{{ t('badges.executions') }}</span>
                 </a>
             </div>
         </div>
 
         <!-- Categoria: Report -->
         <div class="category" data-category="reports">
-            <h2 class="category-title">Report e Analisi</h2>
+            <h2 class="category-title">{{ t('categories.reports') }}</h2>
             <div class="cards-grid">
-                <a href="/tabella_report_dry" class="card" data-keywords="report dry flow check analisi">
+                <!-- Report Dry -->
+                <a href="/tabella_report_dry" class="card" data-keywords="{{ t('cards.report_dry.keywords') }}">
                     <div class="card-icon">📈</div>
-                    <div class="card-title">Flow Check - Dry Report</div>
-                    <div class="card-description">
-                        Report di controllo flusso con analisi delle ultime 24 ore del magazzino dry. Mostra statistiche
-                        e anomalie rilevate.
-                    </div>
-                    <span class="card-badge">24h</span>
-                    <span class="card-badge">Live</span>
-                </a>
-                <a href="/tabella_report_frozen" class="card" data-keywords="report frozen flow check analisi">
-                    <div class="card-icon">📈</div>
-                    <div class="card-title">Flow Check - Frozen Report</div>
-                    <div class="card-description">
-                        Report di controllo flusso con analisi delle ultime 24 ore del magazzino frozen. Mostra
-                        statistiche e anomalie rilevate.
-                    </div>
-                    <span class="card-badge">24h</span>
-                    <span class="card-badge">Live</span>
+                    <div class="card-title">{{ t('cards.report_dry.title') }}</div>
+                    <div class="card-description">{{ t('cards.report_dry.description') }}</div>
+                    <span class="card-badge">{{ t('badges.24h') }}</span>
+                    <span class="card-badge">{{ t('badges.live') }}</span>
                 </a>
 
-
-                <!-- <a class="card" style="opacity: 0.4; cursor: not-allowed;" data-keywords="futuro">
-                    <div class="card-icon">🚧</div>
-                    <div class="card-title">Report Avanzato</div>
-                    <div class="card-description">
-                        Funzionalità in sviluppo. Disponibile prossimamente.
-                    </div>
-                    <span class="card-badge">Coming Soon</span>
-                </a> -->
+                <!-- Report Frozen -->
+                <a href="/tabella_report_frozen" class="card" data-keywords="{{ t('cards.report_frozen.keywords') }}">
+                    <div class="card-icon">📈</div>
+                    <div class="card-title">{{ t('cards.report_frozen.title') }}</div>
+                    <div class="card-description">{{ t('cards.report_frozen.description') }}</div>
+                    <span class="card-badge">{{ t('badges.24h') }}</span>
+                    <span class="card-badge">{{ t('badges.live') }}</span>
+                </a>
             </div>
         </div>
 
-        <!-- Categoria: Visualizzazioni Personalizzate (AGGIUNGI LE TUE) -->
+        <!-- Categoria: Visualizzazioni Personalizzate -->
         <div class="category" data-category="custom-views">
-            <h2 class="category-title">Visualizzazioni Personalizzate</h2>
+            <h2 class="category-title">{{ t('categories.custom') }}</h2>
             <div class="cards-grid">
-                <a href="#" class="card" data-keywords="esempio custom dashboard">
+                <a href="#" class="card" data-keywords="{{ t('cards.custom_dashboard.keywords') }}">
                     <div class="card-icon">🎯</div>
-                    <div class="card-title">Dashboard Custom</div>
-                    <div class="card-description">
-                        Visualizzazione personalizzata con grafici e KPI principali.
-                    </div>
-                    <span class="card-badge">Dashboard</span>
+                    <div class="card-title">{{ t('cards.custom_dashboard.title') }}</div>
+                    <div class="card-description">{{ t('cards.custom_dashboard.description') }}</div>
+                    <span class="card-badge">{{ t('badges.dashboard') }}</span>
                 </a>
             </div>
         </div>
 
         <!-- No Results Message -->
         <div class="no-results" id="noResults" style="display: none;">
-            <p>🔍 Nessun risultato trovato per la tua ricerca.</p>
+            <p>{{ t('search.no_results') }}</p>
         </div>
     </div>
 
     <footer>
-        <p>© 2025 Database Management System | Powered by SystemLogistics</p>
+        <p>{{ t('footer.copyright', year=year) }}</p>
     </footer>
 
     <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
     <script src="{{ url_for('static', filename='js/theme-switcher.js') }}"></script>
+    
+    <script>
+        // Cambio lingua dinamico
+        function changeLanguage(lang) {
+            window.location.href = `/set-language/${lang}`;
+        }
+        
+        // Carica traduzioni per JavaScript (se necessario)
+        const currentLang = '{{ current_lang }}';
+        
+        // Esempio: carica traduzioni per uso JavaScript
+        async function loadTranslations() {
+            const response = await fetch(`/api/translations/${currentLang}`);
+            const translations = await response.json();
+            window.i18n = translations;
+        }
+        
+        loadTranslations();
+    </script>
 </body>
 
 </html>
