@@ -35,13 +35,13 @@
       "description": "View the last 100 records from HOST_EXPORT table sorted by date. Includes advanced XML formatting.",
       "keywords": "export host xml table"
     },
-    "entry_notices": {
-      "title": "Entry Notices",
-      "description": "View entry notices that are waiting, executing or incomplete",
-      "keywords": "notices entry waiting incomplete"
+    "inbound_instructions": {
+      "title": "Inbound Instructions",
+      "description": "View Inbound Instructions that are waiting, executing or incomplete",
+      "keywords": "inbound instruction waiting incomplete"
     },
     "launch_orders": {
-      "title": "Launch Orders",
+      "title": "Orders",
       "description": "View all exit orders waiting for execution, executing or incomplete.",
       "keywords": "orders incomplete launch exit"
     },
@@ -74,8 +74,8 @@
   "badges": {
     "top_100": "Top 100",
     "xml": "XML",
-    "entry": "Entry",
-    "notices": "Notices",
+    "inbound": "Inbound",
+    "instruction": "instruction",
     "incomplete": "Incomplete",
     "orders": "Orders",
     "exit": "Exit",

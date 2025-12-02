@@ -20,14 +20,27 @@ function initThemeSwitcher() {
         document.body.classList.add('light-theme');
     }
 
-    // Create theme toggle button
-    const headerContent = document.querySelector('.header-content');
-    if (!headerContent) return;
+    // Find header controls container (preferito) o fallback su header-content
+    let targetContainer = document.querySelector('.header-controls');
+    
+    if (!targetContainer) {
+        // Fallback: se non esiste header-controls, usa header-content
+        targetContainer = document.querySelector('.header-content');
+        
+        if (!targetContainer) return; // Nessun container trovato, esci
+        
+        // Crea header-controls se non esiste
+        const controlsContainer = document.createElement('div');
+        controlsContainer.className = 'header-controls';
+        targetContainer.appendChild(controlsContainer);
+        targetContainer = controlsContainer;
+    }
 
+    // Create theme toggle button
     const themeToggleContainer = document.createElement('div');
     themeToggleContainer.className = 'theme-toggle-container';
     themeToggleContainer.innerHTML = `
-        <button id="themeToggle" class="theme-toggle-btn ${savedTheme === 'light' ? 'light' : ''} " 
+        <button id="themeToggle" class="theme-toggle-btn ${savedTheme === 'light' ? 'light' : ''}" 
                 title="Toggle theme" aria-label="Toggle light/dark theme">
             <div class="theme-toggle-slider">
                 <span class="theme-icon">${savedTheme === 'light' ? '☀️' : '🌙'}</span>
@@ -35,7 +48,8 @@ function initThemeSwitcher() {
         </button>
     `;
 
-    headerContent.appendChild(themeToggleContainer);
+    // Append al container (sarà dopo il language selector)
+    targetContainer.appendChild(themeToggleContainer);
 
     // Add click event listener
     const toggleBtn = document.getElementById('themeToggle');

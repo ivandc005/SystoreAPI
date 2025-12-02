@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ t('header.title') }}</title>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='theme-switcher.css') }}">
@@ -13,32 +15,42 @@
 </head>
 
 <body>
-    <header>    
-
-        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;" class="header-content">
-            <!-- Selettore Lingua -->
-            <div class="language-selector">
-                <i class="fas fa-globe"></i>
-                <select id="languageSelect" onchange="changeLanguage(this.value)">
-                    {% for lang in supported_langs %}
-                        <option value="{{ lang }}" {% if lang == current_lang %}selected{% endif %}>
-                            {{ t('meta.language_name', lang=lang)|upper }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="logo-hover-container ">
+    <header>
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; width: 100%;" class="header-content">
+            
+            <!-- Logo -->
+            <div class="logo-hover-container">
                 <img src="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}" alt="Logo" class="logo-img" />
                 <span class="logo-icon">
                     <i class="fa-solid fa-house"></i>
                 </span>
             </div>
+            
+            <!-- Header Text -->
             <div class="header-text">
                 <h1>{{ t('header.title') }}</h1>
                 <p>{{ t('header.subtitle') }}</p>
             </div>
+            
+            <!-- Controls Container: Language + Theme -->
+            <div class="header-controls">
+                <!-- Selettore Lingua -->
+                <div class="language-selector">
+                    <i class="fas fa-globe"></i>
+                    <select id="languageSelect" onchange="changeLanguage(this.value)" aria-label="Select language">
+                        {% for lang in supported_langs %}
+                            <option value="{{ lang }}" {% if lang == current_lang %}selected{% endif %}>
+                                {{ t('meta.language_name', lang=lang)|upper }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Theme Switcher (auto-generato da theme-switcher.js) -->
+                <!-- Il button viene inserito qui automaticamente dallo script -->
+            </div>
+            
         </div>
-
     </header>
 
     <div class="container">
@@ -79,10 +91,10 @@
                 <!-- Avvisi di Ingresso -->
                 <a href="/avvisi_di_ingresso" class="card" data-keywords="{{ t('cards.entry_notices.keywords') }}">
                     <div class="card-icon">📦</div>
-                    <div class="card-title">{{ t('cards.entry_notices.title') }}</div>
-                    <div class="card-description">{{ t('cards.entry_notices.description') }}</div>
-                    <span class="card-badge">{{ t('badges.entry') }}</span>
-                    <span class="card-badge">{{ t('badges.notices') }}</span>
+                    <div class="card-title">{{ t('cards.inbound_instructions.title') }}</div>
+                    <div class="card-description">{{ t('cards.inbound_instructions.description') }}</div>
+                    <span class="card-badge">{{ t('badges.inbound') }}</span>
+                    <span class="card-badge">{{ t('badges.instruction') }}</span>
                     <span class="card-badge">{{ t('badges.incomplete') }}</span>
                 </a>
 

@@ -25,11 +25,67 @@ document.addEventListener('DOMContentLoaded', function() {
     const copyBtn = popup.querySelector('.copy-btn');
     const copyLabel = copyBtn.querySelector('.copy-label');
 
+    // ============================================
+    // FUNZIONE PER FORMATTARE XML CORRETTAMENTE
+    // ============================================
+    function formatXml(xml) {
+        try {
+            // Rimuove spazi bianchi extra e newline
+            xml = xml.trim().replace(/>\s+</g, '><');
+            
+            // Parse XML
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xml, 'text/xml');
+            
+            // Controlla errori di parsing
+            const parserError = xmlDoc.getElementsByTagName('parsererror');
+            if (parserError.length > 0) {
+                console.warn('XML parsing error, returning original');
+                return xml;
+            }
+            
+            // Serializza con formattazione
+            const serializer = new XMLSerializer();
+            let formatted = serializer.serializeToString(xmlDoc);
+            
+            // Indentazione manuale per maggiore controllo
+            let indentLevel = 0;
+            const indent = '  '; // 2 spazi per livello
+            
+            formatted = formatted
+                .replace(/></g, '>\n<') // Nuova riga tra tag
+                .split('\n')
+                .map(line => {
+                    line = line.trim();
+                    
+                    // Tag di chiusura: riduci indentazione prima
+                    if (line.match(/^<\/\w/)) {
+                        indentLevel = Math.max(0, indentLevel - 1);
+                    }
+                    
+                    const indentedLine = indent.repeat(indentLevel) + line;
+                    
+                    // Tag di apertura senza chiusura immediata: aumenta indentazione
+                    if (line.match(/^<\w[^>]*[^\/]>$/)) {
+                        indentLevel++;
+                    }
+                    
+                    return indentedLine;
+                })
+                .join('\n');
+            
+            return formatted;
+            
+        } catch (error) {
+            console.error('Error formatting XML:', error);
+            return xml; // Ritorna XML originale in caso di errore
+        }
+    }
+
     // Funzione per chiudere il popup
     function closePopup() {
         popup.classList.remove('show');
         popup.style.display = "none";
-        // Ripristina lo scroll della pagina
         document.body.style.overflow = "";
     }
 
@@ -40,21 +96,17 @@ document.addEventListener('DOMContentLoaded', function() {
     copyBtn.addEventListener('click', function() {
         const xmlText = popupContent.textContent;
         
-        // Copia negli appunti
         navigator.clipboard.writeText(xmlText).then(function() {
-            // Feedback visivo: cambia il testo del pulsante
             const originalHTML = copyBtn.innerHTML;
             copyBtn.innerHTML = '<i class="fa-solid fa-check"></i><span class="copy-label">Copiato!</span>';
             copyBtn.style.backgroundColor = '#00aa00';
             
-            // Ripristina dopo 2 secondi
             setTimeout(function() {
                 copyBtn.innerHTML = originalHTML;
                 copyBtn.style.backgroundColor = '';
             }, 2000);
         }).catch(function(err) {
             console.error('Errore nella copia: ', err);
-            // Feedback di errore
             copyLabel.textContent = 'Errore!';
             setTimeout(function() {
                 copyLabel.textContent = 'Copia';
@@ -73,14 +125,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const xmlCells = document.querySelectorAll('.campo-xml');
     
     xmlCells.forEach(cell => {
-        // Limita il testo a 2 righe inizialmente
         const pre = cell.querySelector('pre');
         if (pre) {
             const fullText = pre.textContent;
-            cell.dataset.fullXml = fullText;
             
-            // Mostra solo le prime 2 righe
-            const lines = fullText.split('\n');
+            // *** FORMATTA L'XML CORRETTAMENTE ***
+            const formattedXml = formatXml(fullText);
+            cell.dataset.fullXml = formattedXml;
+            
+            // Mostra solo le prime 2 righe nel preview
+            const lines = formattedXml.split('\n');
             const preview = lines.slice(0, 2).join('\n');
             pre.textContent = preview + (lines.length > 2 ? '...' : '');
         }
@@ -94,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 popupContent.textContent = fullXml;
                 popup.classList.add('show');
                 popup.style.display = 'flex';
-                // Blocca lo scroll della pagina mentre il popup è aperto
                 document.body.style.overflow = "hidden";
             }
         });
