@@ -35,7 +35,7 @@
       "description": "Visualizza gli ultimi 100 record della tabella HOST_EXPORT ordinati per data. Include formattazione XML avanzata.",
       "keywords": "export host xml tabella"
     },
-    "entry_notices": {
+    "inbound_instructions": {
       "title": "Avvisi di Ingresso",
       "description": "Visualizza gli avvisi di ingresso in attesa, in esecuzione o in incompleto",
       "keywords": "avvisi ingresso attesa incompleto"
@@ -74,8 +74,8 @@
   "badges": {
     "top_100": "Top 100",
     "xml": "XML",
-    "entry": "Ingresso",
-    "notices": "Avvisi",
+    "inbound": "Ingresso",
+    "instruction": "Avvisi",
     "incomplete": "Incompleto",
     "orders": "Ordini",
     "exit": "Uscita",

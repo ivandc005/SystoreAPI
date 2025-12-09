@@ -1,0 +1,55 @@
+# ============================================================
+# HOST_EXPORT - Configurazione Override
+# ============================================================
+
+display_name: "Export Records"
+
+description: "Visualizza gli ultimi 100 record della tabella HOST_EXPORT ordinati per data. Include formattazione XML avanzata."
+
+route: "/tabella_export"
+
+icon: "📤"
+
+badges:
+  - "Top 100"
+  - "XML"
+
+keywords: "export host xml tabella"
+
+# ============================================================
+# CONFIGURAZIONE QUERY
+# ============================================================
+
+default_limit: 100
+
+order_by: "EXP_TIME DESC"
+
+# ============================================================
+# CONFIGURAZIONE COLONNE
+# ============================================================
+
+hide_columns:
+  - "EXP_DATA_XML"
+
+columns:
+  EXP_STATUS:
+    formatter: "status_badge"
+    status_colors:
+      COMPL: "green"
+      WAIT: "yellow"
+      ERR: "red"
+  
+  EXP_DATA:
+    formatter: "expandable_code"
+  
+  EXP_DATA_1:
+    formatter: "expandable_code"
+  
+  EXP_TIME:
+    formatter: "datetime"
+  
+  EXP_ID:
+    formatter: "monospace_id"
+
+menu_category: "import_export"
+menu_order: 2

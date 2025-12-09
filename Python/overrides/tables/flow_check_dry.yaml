@@ -1,0 +1,66 @@
+# ============================================================
+# FLOW CHECK DRY - Vista Custom (Stored Procedure)
+# ============================================================
+
+# Tipo di vista
+type: "custom_query"
+
+# Nome visualizzato
+name: "Flow Check - Dry Report"
+
+# Descrizione
+description: "Report di controllo flusso con analisi delle ultime 24 ore del magazzino dry. Mostra statistiche e anomalie rilevate."
+
+# Route
+route: "/tabella_report_dry"
+
+# Icona
+icon: "📈"
+
+# Badges
+badges:
+  - "24h"
+  - "Live"
+
+# Keywords
+keywords: "report dry flow check analisi"
+
+# ============================================================
+# CONFIGURAZIONE QUERY
+# ============================================================
+
+# Tipo query: stored_procedure, sql, template
+query_type: "stored_procedure"
+
+# Nome stored procedure
+procedure: "ws_CUSTOM_L2_FlowCheck_Dry"
+
+# Parametri stored procedure
+parameters:
+  databeg: "TODAY"      # Verrà sostituito con FORMAT(GETDATE(), 'yyyy-MM-dd')
+  dataend: "TOMORROW"   # Verrà sostituito con FORMAT(DATEADD(DAY, 1, GETDATE()), 'yyyy-MM-dd')
+  param3: 24
+  param4: 60
+
+# ============================================================
+# CONFIGURAZIONE COLONNE
+# ============================================================
+
+# Override formatter per colonne specifiche (se necessario)
+column_overrides:
+  # Esempio: se la stored procedure restituisce colonne con nomi specifici
+  STATUS:
+    formatter: "status_badge"
+  
+  ERROR_COUNT:
+    formatter: "number"
+
+# Template da usare (opzionale, default: dynamic_custom_view.html)
+template: "tabelle.html"
+
+# ============================================================
+# MENU
+# ============================================================
+
+menu_category: "reports"
+menu_order: 1

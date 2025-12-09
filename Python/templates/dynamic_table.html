@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ display_name }} - {{ t('header.title') }}</title>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='tables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='xml-popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme-switcher.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='language-selector.css') }}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; width: 100%;" class="header-content">
+            
+            <!-- Logo -->
+            <a href="/" class="logo-hover-container">
+                <img src="{{ url_for('static', filename='Multimedia/Pinwheel.png') }}" alt="Logo" class="logo-img" />
+                <span class="logo-icon">
+                    <i class="fa-solid fa-house"></i>
+                </span>
+            </a>
+            
+            <!-- Header Text -->
+            <div class="header-text">
+                <h1>{{ display_name }}</h1>
+                <p>{{ config.description if config and config.description else table_name }}</p>
+            </div>
+            
+            <!-- Controls Container: Language + Theme -->
+            <div class="header-controls">
+                <!-- Selettore Lingua -->
+                <div class="language-selector">
+                    <i class="fas fa-globe"></i>
+                    <select id="languageSelect" onchange="changeLanguage(this.value)" aria-label="Select language">
+                        {% for lang in supported_langs %}
+                            <option value="{{ lang }}" {% if lang == current_lang %}selected{% endif %}>
+                                {{ t('meta.language_name', lang=lang)|upper }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Theme Switcher (auto-generato da theme-switcher.js) -->
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    {% for col in colonne %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for riga in dati %}
+                <tr>
+                    {% for col in colonne %}
+                    <td 
+                        class="{{ riga[col].css_class if riga[col].css_class else '' }}"
+                        {% if riga[col].full_text %}title="{{ riga[col].full_text }}"{% endif %}
+                        {% if riga[col].is_expandable %}
+                            data-full-content="{{ riga[col].full_content }}"
+                            onclick="openXmlPopup(this)"
+                            style="cursor: pointer;"
+                        {% endif %}
+                    >
+                        {% if riga[col].is_expandable %}
+                            <pre>{{ riga[col].value }}</pre>
+                        {% else %}
+                            {{ riga[col].value }}
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>{{ t('footer.copyright', year=year) }}</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/xml-popup.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table-formatter.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/theme-switcher.js') }}"></script>
+    
+    <script>
+        function changeLanguage(lang) {
+            window.location.href = `/set-language/${lang}`;
+        }
+        
+        // Funzione per aprire popup XML
+        function openXmlPopup(element) {
+            const fullContent = element.getAttribute('data-full-content');
+            if (!fullContent) return;
+            
+            // Usa il sistema esistente di xml-popup.js
+            const popup = document.getElementById('xml-popup') || createXmlPopup();
+            const codeElement = popup.querySelector('.xml-popup-code');
+            
+            codeElement.textContent = fullContent;
+            popup.classList.add('show');
+            popup.style.display = 'flex';
+        }
+    </script>
+
+</body>
+
+</html>

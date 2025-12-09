@@ -1,0 +1,75 @@
+# ============================================================
+# HOST_IMPORT - Configurazione Override
+# ============================================================
+
+# Nome visualizzato nell'interfaccia
+display_name: "Import Records"
+
+# Descrizione per il menu
+description: "Visualizza gli ultimi 100 record della tabella HOST_IMPORT ordinati per data. Include formattazione XML avanzata."
+
+# Route personalizzata (opzionale, default: /table/host_import)
+route: "/tabella_import"
+
+# Icona per il menu
+icon: "📥"
+
+# Badges da mostrare nella card
+badges:
+  - "Top 100"
+  - "XML"
+
+# Keywords per ricerca
+keywords: "import host xml tabella"
+
+# ============================================================
+# CONFIGURAZIONE QUERY
+# ============================================================
+
+# Numero di record da mostrare (default: 100)
+default_limit: 100
+
+# Ordinamento (default: primary key DESC)
+order_by: "IMP_TIME DESC"
+
+# Filtri aggiuntivi (opzionale)
+# filters:
+#   - "IMP_STATUS = 'COMPL'"
+#   - "IMP_TIME > DATEADD(day, -7, GETDATE())"
+
+# ============================================================
+# CONFIGURAZIONE COLONNE
+# ============================================================
+
+# Colonne da nascondere completamente
+hide_columns:
+  - "IMP_DATA_XML"  # Colonna ridondante
+
+# Override formatter per colonne specifiche
+columns:
+  IMP_STATUS:
+    formatter: "status_badge"
+    status_colors:
+      COMPL: "green"
+      WAIT: "yellow"
+      ERR: "red"
+  
+  IMP_DATA:
+    formatter: "expandable_code"
+    # Questa colonna avrà popup XML
+  
+  IMP_TIME:
+    formatter: "datetime"
+  
+  IMP_ID:
+    formatter: "monospace_id"
+
+# ============================================================
+# CONFIGURAZIONE MENU
+# ============================================================
+
+# Categoria nel menu (auto-detection se omesso)
+menu_category: "import_export"
+
+# Ordine nella categoria (opzionale)
+menu_order: 1
